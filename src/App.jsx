@@ -1,34 +1,29 @@
 import React, {Component} from 'react';
 import Input from '../components/input.jsx';
-import Output from '../components/output.jsx';
+import Button from '../components/button.jsx';
 
 class App extends Component {
 constructor(props){
 	super(props);
-	this.myFunction = this.myFunction.bind(this);
-	this.state = {check: "true"};
+	this.handleEventChange = this.handleEventChange.bind(this);
+	this.handleClickEvent= this.handleClickEvent.bind(this);
+	this.state = {finalData: "Nothing is added", data: null};
 }
 
-componentWillMount(){
-	console.log("1");
-	this.setState({uncheck: "password"});
+handleClickEvent(){
+	this.setState({finalData: this.state.data});
 }
 
-myFunction(a,b){
-	return(console.log(a+b));
-}
-
-componentDidMount(){
-	console.log("3");
-	this.myFunction(1,4);
+handleEventChange(event){
+	this.setState({data: event.target.value})
 }
 
 render() {
-	console.dir(this.state);
     return (
     <div>
-      <Input prop1={"text"} prop2={this.state.check} someData={"login"}/>
-      {this.state.check}
+      <Input type={"text"} handleChange={this.handleEventChange}/>
+      <Button label={"Add"} handleClick={this.handleClickEvent} />
+      <div>{this.state.finalData}</div>
     </div>
     );
   }
